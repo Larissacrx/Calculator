@@ -1,0 +1,176 @@
+﻿<Window x:Class="CalculadoraWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Calculadora Moderna" Height="600" Width="420"
+        FontFamily="Segoe UI" Background="#F0F0F5">
+
+    <Window.Resources>
+
+     
+        <Style TargetType="TextBox" x:Key="ModernTextBox">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        
+        <Style TargetType="Button" x:Key="ModernButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#6a00ff" Offset="0"/>
+                        <GradientStop Color="#4400cc" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="16"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                             To="1.1" Duration="0:0:0.15"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                             To="1.1" Duration="0:0:0.15"/>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].Color"
+                                                            To="#8C00FF" Duration="0:0:0.3"/>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].Color"
+                                                            To="#5500FF" Duration="0:0:0.3"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                                           Storyboard.TargetProperty="Effect">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <DropShadowEffect Color="#AA5500FF" BlurRadius="15" ShadowDepth="0"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                             To="1" Duration="0:0:0.15"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                             To="1" Duration="0:0:0.15"/>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].Color"
+                                                            To="#6a00ff" Duration="0:0:0.3"/>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].Color"
+                                                            To="#4400cc" Duration="0:0:0.3"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                                           Storyboard.TargetProperty="Effect">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <x:Null/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#5200B3" Offset="0"/>
+                                            <GradientStop Color="#33007A" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+   
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+
+           
+            <TextBlock Text="Número 1:" FontWeight="SemiBold"/>
+            <TextBox x:Name="Numero1TextBox" Style="{StaticResource ModernTextBox}" />
+
+            <TextBlock Text="Número 2:" FontWeight="SemiBold"/>
+            <TextBox x:Name="Numero2TextBox" Style="{StaticResource ModernTextBox}" />
+
+            
+            <WrapPanel HorizontalAlignment="Center" Margin="0 10 0 0">
+                <Button Content="➕ Somar" Click="Somar_Click" Style="{StaticResource ModernButton}"/>
+                <Button Content="➖ Subtrair" Click="Subtrair_Click" Style="{StaticResource ModernButton}"/>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Content="✖️ Multiplicar" Click="Multiplicar_Click" Style="{StaticResource ModernButton}"/>
+                <Button Content="➗ Dividir" Click="Dividir_Click" Style="{StaticResource ModernButton}"/>
+            </WrapPanel>
+
+           
+            <TextBlock x:Name="ResultadoTextBlock"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="DarkGreen"
+                       Margin="10"
+                       TextAlignment="Center"
+                       Text="Resultado aparecerá aqui."/>
+
+          
+            <Button Content="🌗 Alternar Tema" Click="AlternarTema_Click" Style="{StaticResource ModernButton}" HorizontalAlignment="Center"/>
+
+           
+            <TextBlock Text="Histórico:" FontWeight="Bold" Margin="10 10 0 5"/>
+            <ListBox x:Name="HistoricoListBox" Height="120" Background="White" BorderBrush="#CCC" BorderThickness="1"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
